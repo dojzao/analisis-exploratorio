@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introducción",
+    "section": "",
+    "text": "Análisis exploratorio utilizando datos que contienen registros de sesiones de entrenamiento físico individuales, con variables fisiológicas, de rendimiento y demográficas.\n\nPaquetes\n\nimport os\nimport numpy as np\nimport pandas as pd\nimport plotly.graph_objects as go\nfrom math import pi\nfrom prince import PCA\nfrom umap.umap_ import UMAP\nfrom sklearn.manifold import TSNE\nfrom sklearn.preprocessing import StandardScaler\n\n\n\nCarga de datos\n\ndatos = pd.read_csv('data/gimnasio.csv', delimiter = ';', decimal = \".\")\ndatos\n\n\n\n\n\n\n\n\nEdad\nGenero\nPeso\nAltura\nMax_BPM\nAvg_BPM\nRep_BPM\nDuracion\nCalorias\nEntrenamiento\nGrasa\nAgua\nFrecuencia\nExperiencia\nIMC\n\n\n\n\n0\n56\nMasculino\n88.3\n1.71\n180\n157\n60\n1.69\n1313\nYoga\n12.6\n3.5\n4\nExperto\n30.20\n\n\n1\n46\nFemenino\n74.9\n1.53\n179\n151\n66\n1.30\n883\nHIIT\n33.9\n2.1\n4\nIntermedio\n32.00\n\n\n2\n32\nFemenino\n68.1\n1.66\n167\n122\n54\n1.11\n677\nCardio\n33.4\n2.3\n4\nIntermedio\n24.71\n\n\n3\n25\nMasculino\n53.2\n1.70\n190\n164\n56\n0.59\n532\nFuerza\n28.8\n2.1\n3\nPrincipiante\n18.41\n\n\n4\n38\nMasculino\n46.1\n1.79\n188\n158\n68\n0.64\n556\nFuerza\n29.2\n2.8\n3\nPrincipiante\n14.39\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n968\n24\nMasculino\n87.1\n1.74\n187\n158\n67\n1.57\n1364\nFuerza\n10.0\n3.5\n4\nExperto\n28.77\n\n\n969\n25\nMasculino\n66.6\n1.61\n184\n166\n56\n1.38\n1260\nFuerza\n25.0\n3.0\n2\nPrincipiante\n25.69\n\n\n970\n59\nFemenino\n60.4\n1.76\n194\n120\n53\n1.72\n929\nCardio\n18.8\n2.7\n5\nExperto\n19.50\n\n\n971\n32\nMasculino\n126.4\n1.83\n198\n146\n62\n1.10\n883\nHIIT\n28.2\n2.1\n3\nIntermedio\n37.74\n\n\n972\n46\nMasculino\n88.7\n1.63\n166\n146\n66\n0.75\n542\nFuerza\n28.8\n3.5\n2\nPrincipiante\n33.38\n\n\n\n\n973 rows × 15 columns"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Acerca De",
+    "section": "",
+    "text": "Diego Jiménez Alvarado\nGithub: Ver mi repositorio en GitHub\nDatos obtenidos de Kaggle: https://www.kaggle.com\n2025"
+  },
+  {
+    "objectID": "description.html",
+    "href": "description.html",
+    "title": "Descripción de los Datos",
+    "section": "",
+    "text": "Cantidad de datos\n\ndatos.shape\n\n(973, 15)\n\n\n\n\nTipos de datos\n\ndatos.dtypes\n\nEdad               int64\nGenero            object\nPeso             float64\nAltura           float64\nMax_BPM            int64\nAvg_BPM            int64\nRep_BPM            int64\nDuracion         float64\nCalorias           int64\nEntrenamiento     object\nGrasa            float64\nAgua             float64\nFrecuencia         int64\nExperiencia       object\nIMC              float64\ndtype: object\n\n\n\n\nResumen\n\ndatos.info()\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 973 entries, 0 to 972\nData columns (total 15 columns):\n #   Column         Non-Null Count  Dtype  \n---  ------         --------------  -----  \n 0   Edad           973 non-null    int64  \n 1   Genero         973 non-null    object \n 2   Peso           973 non-null    float64\n 3   Altura         973 non-null    float64\n 4   Max_BPM        973 non-null    int64  \n 5   Avg_BPM        973 non-null    int64  \n 6   Rep_BPM        973 non-null    int64  \n 7   Duracion       973 non-null    float64\n 8   Calorias       973 non-null    int64  \n 9   Entrenamiento  973 non-null    object \n 10  Grasa          973 non-null    float64\n 11  Agua           973 non-null    float64\n 12  Frecuencia     973 non-null    int64  \n 13  Experiencia    973 non-null    object \n 14  IMC            973 non-null    float64\ndtypes: float64(6), int64(6), object(3)\nmemory usage: 114.2+ KB"
+  },
+  {
+    "objectID": "variables.html",
+    "href": "variables.html",
+    "title": "Variables",
+    "section": "",
+    "text": "datos.describe()\n\n\n\n\n\n\n\n\nEdad\nPeso\nAltura\nMax_BPM\nAvg_BPM\nRep_BPM\nDuracion\nCalorias\nGrasa\nAgua\nFrecuencia\nIMC\n\n\n\n\ncount\n973.000000\n973.000000\n973.00000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n\n\nmean\n38.683453\n73.854676\n1.72258\n179.883864\n143.766701\n62.223022\n1.256423\n905.422405\n24.976773\n2.626619\n3.321686\n24.912127\n\n\nstd\n12.180928\n21.207500\n0.12772\n11.525686\n14.345101\n7.327060\n0.343033\n272.641516\n6.259419\n0.600172\n0.913047\n6.660879\n\n\nmin\n18.000000\n40.000000\n1.50000\n160.000000\n120.000000\n50.000000\n0.500000\n303.000000\n10.000000\n1.500000\n2.000000\n12.320000\n\n\n25%\n28.000000\n58.100000\n1.62000\n170.000000\n131.000000\n56.000000\n1.040000\n720.000000\n21.300000\n2.200000\n3.000000\n20.110000\n\n\n50%\n40.000000\n70.000000\n1.71000\n180.000000\n143.000000\n62.000000\n1.260000\n893.000000\n26.200000\n2.600000\n3.000000\n24.160000\n\n\n75%\n49.000000\n86.000000\n1.80000\n190.000000\n156.000000\n68.000000\n1.460000\n1076.000000\n29.300000\n3.100000\n4.000000\n28.560000\n\n\nmax\n59.000000\n129.900000\n2.00000\n199.000000\n169.000000\n74.000000\n2.000000\n1783.000000\n35.000000\n3.700000\n5.000000\n49.840000\n\n\n\n\n\n\n\n\n\n\n\ndatos_numericos = datos.select_dtypes(\"number\")\n\nfor var in datos_numericos.columns:\n  fig = go.Figure()\n  no_plot = fig.add_trace(\n    go.Histogram(x = datos.loc[:, var])\n  )\n  no_plot = fig.update_traces(marker_line_width = 1, marker_line_color = \"white\")\n  fig.update_layout(title = var)\n  fig.show()"
+  },
+  {
+    "objectID": "variables.html#resumen-numérico",
+    "href": "variables.html#resumen-numérico",
+    "title": "Variables",
+    "section": "",
+    "text": "datos.describe()\n\n\n\n\n\n\n\n\nEdad\nPeso\nAltura\nMax_BPM\nAvg_BPM\nRep_BPM\nDuracion\nCalorias\nGrasa\nAgua\nFrecuencia\nIMC\n\n\n\n\ncount\n973.000000\n973.000000\n973.00000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n973.000000\n\n\nmean\n38.683453\n73.854676\n1.72258\n179.883864\n143.766701\n62.223022\n1.256423\n905.422405\n24.976773\n2.626619\n3.321686\n24.912127\n\n\nstd\n12.180928\n21.207500\n0.12772\n11.525686\n14.345101\n7.327060\n0.343033\n272.641516\n6.259419\n0.600172\n0.913047\n6.660879\n\n\nmin\n18.000000\n40.000000\n1.50000\n160.000000\n120.000000\n50.000000\n0.500000\n303.000000\n10.000000\n1.500000\n2.000000\n12.320000\n\n\n25%\n28.000000\n58.100000\n1.62000\n170.000000\n131.000000\n56.000000\n1.040000\n720.000000\n21.300000\n2.200000\n3.000000\n20.110000\n\n\n50%\n40.000000\n70.000000\n1.71000\n180.000000\n143.000000\n62.000000\n1.260000\n893.000000\n26.200000\n2.600000\n3.000000\n24.160000\n\n\n75%\n49.000000\n86.000000\n1.80000\n190.000000\n156.000000\n68.000000\n1.460000\n1076.000000\n29.300000\n3.100000\n4.000000\n28.560000\n\n\nmax\n59.000000\n129.900000\n2.00000\n199.000000\n169.000000\n74.000000\n2.000000\n1783.000000\n35.000000\n3.700000\n5.000000\n49.840000"
+  },
+  {
+    "objectID": "variables.html#histogramas",
+    "href": "variables.html#histogramas",
+    "title": "Variables",
+    "section": "",
+    "text": "datos_numericos = datos.select_dtypes(\"number\")\n\nfor var in datos_numericos.columns:\n  fig = go.Figure()\n  no_plot = fig.add_trace(\n    go.Histogram(x = datos.loc[:, var])\n  )\n  no_plot = fig.update_traces(marker_line_width = 1, marker_line_color = \"white\")\n  fig.update_layout(title = var)\n  fig.show()"
+  },
+  {
+    "objectID": "atipicos.html",
+    "href": "atipicos.html",
+    "title": "Átipicos",
+    "section": "",
+    "text": "Valores Átipicos\n\ndatos_numericos = datos.select_dtypes(\"number\")\n\nfig = go.Figure()\nfor var in datos_numericos.columns:\n  no_plot = fig.add_trace(\n    go.Box(y = datos.loc[:, var], name = var)\n  )\n\nfig.show()"
+  },
+  {
+    "objectID": "multivariado.html",
+    "href": "multivariado.html",
+    "title": "Análisis Multivariado",
+    "section": "",
+    "text": "Matriz de Correlaciones\n\ndatos_numericos = datos.select_dtypes(\"number\")\ncorrelaciones   = datos_numericos.corr()\n\nfig = go.Figure()\nno_plot = fig.add_trace(\n  go.Heatmap(x = correlaciones.columns, y = correlaciones.index, z = correlaciones,\n             colorscale = 'RdBu', zmin = -1, zmax = 1,\n             text = correlaciones.round(2),\n             texttemplate = \"%{text}\")\n)\nno_plot = fig.update_layout(\n  yaxis_autorange = 'reversed'\n)\n\nfig.show()\n\n        \n        \n        \n\n\n                            \n                                            \n\n\n\n\nGráfico de Pares\n\nimport seaborn as sns\n\nsns.pairplot(datos_numericos)"
+  }
+]

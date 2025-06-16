@@ -1,0 +1,44 @@
+---
+title: "Descripción de los Datos"
+---
+
+```{python}
+#| echo: false
+#| warning: false
+
+import os
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from math import pi
+from prince import PCA
+from umap.umap_ import UMAP
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
+
+datos = pd.read_csv('data/gimnasio.csv', delimiter = ';', decimal = ".")
+```
+
+# Cantidad de datos
+
+```{python}
+#| echo: true
+
+datos.shape
+```
+
+# Tipos de datos
+
+```{python}
+#| echo: true
+
+datos.dtypes
+```
+
+# Resumen
+
+```{python}
+#| echo: true
+
+datos.info()
+```

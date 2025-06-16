@@ -1,0 +1,11 @@
+---
+title: "Acerca De"
+---
+
+Diego Jiménez Alvarado
+
+Github: [Ver mi repositorio en GitHub](https://github.com/dojzao/analisis-exploratorio)
+
+Datos obtenidos de Kaggle: [https://www.kaggle.com](https://www.kaggle.com/datasets/valakhorasani/gym-members-exercise-dataset)
+
+2025

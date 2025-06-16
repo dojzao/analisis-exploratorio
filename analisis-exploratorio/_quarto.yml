@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Análisis Exploratorio de Datos"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Introducción
+      - href: description.qmd
+        text: Descripción de los Datos
+      - href: variables.qmd
+        text: Variables
+      - href: atipicos.qmd
+        text: Átipicos
+      - href: multivariado.qmd
+        text: Análisis Multivariado
+      - href: about.qmd
+        text: Acerca De
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+editor: visual
+

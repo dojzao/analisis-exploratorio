@@ -1,0 +1,53 @@
+---
+title: "Análisis Multivariado"
+---
+
+```{python}
+#| echo: false
+#| warning: false
+
+import os
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+from math import pi
+from prince import PCA
+from umap.umap_ import UMAP
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
+
+datos = pd.read_csv('data/gimnasio.csv', delimiter = ';', decimal = ".")
+```
+
+# Matriz de Correlaciones
+
+```{python}
+#| echo: true
+
+datos_numericos = datos.select_dtypes("number")
+correlaciones   = datos_numericos.corr()
+
+fig = go.Figure()
+no_plot = fig.add_trace(
+  go.Heatmap(x = correlaciones.columns, y = correlaciones.index, z = correlaciones,
+             colorscale = 'RdBu', zmin = -1, zmax = 1,
+             text = correlaciones.round(2),
+             texttemplate = "%{text}")
+)
+no_plot = fig.update_layout(
+  yaxis_autorange = 'reversed'
+)
+
+fig.show()
+```
+
+# Gráfico de Pares
+
+```{python}
+#| echo: true
+
+import seaborn as sns
+
+sns.pairplot(datos_numericos)
+```

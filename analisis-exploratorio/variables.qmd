@@ -1,0 +1,71 @@
+---
+title: "Variables"
+---
+
+```{python}
+#| echo: false
+#| warning: false
+
+import os
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from math import pi
+from prince import PCA
+from umap.umap_ import UMAP
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
+
+datos = pd.read_csv('data/gimnasio.csv', delimiter = ';', decimal = ".")
+```
+
+# Variables numéricas
+
+## Resumen numérico
+
+```{python}
+#| echo: true
+
+datos.describe()
+```
+
+## Histogramas
+
+```{python}
+#| echo: true
+
+datos_numericos = datos.select_dtypes("number")
+
+for var in datos_numericos.columns:
+  fig = go.Figure()
+  no_plot = fig.add_trace(
+    go.Histogram(x = datos.loc[:, var])
+  )
+  no_plot = fig.update_traces(marker_line_width = 1, marker_line_color = "white")
+  fig.update_layout(title = var)
+  fig.show()
+```
+
+# Variables categóricas
+
+```{python}
+#| echo: true
+
+datos_categoricos = datos.select_dtypes("object")
+
+for var in datos_categoricos.columns:
+  aux = datos_categoricos.loc[:, var].value_counts()
+  
+  fig = go.Figure()
+  no_plot = fig.add_trace(
+    go.Bar(x = aux.index, y = aux.to_list())
+  )
+  fig.update_layout(title = var)
+  fig.show()
+```
+
+
+
+
+
+

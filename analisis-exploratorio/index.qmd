@@ -1,0 +1,31 @@
+---
+title: "Introducción"
+---
+
+Análisis exploratorio utilizando datos que contienen registros de sesiones de entrenamiento físico individuales, con variables fisiológicas, de rendimiento y demográficas.
+
+# Paquetes
+
+```{python}
+#| echo: true
+#| warning: false
+
+import os
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+from math import pi
+from prince import PCA
+from umap.umap_ import UMAP
+from sklearn.manifold import TSNE
+from sklearn.preprocessing import StandardScaler
+```
+
+# Carga de datos
+
+```{python}
+#| echo: true
+
+datos = pd.read_csv('data/gimnasio.csv', delimiter = ';', decimal = ".")
+datos
+```
